@@ -1,0 +1,72 @@
+POST request insert
+===================
+
+var xhr = new XMLHttpRequest();
+xhr.open("POST", "http://localhost:8080/service", true);
+xhr.setRequestHeader('Content-Type', 'application/json');
+xhr.send(JSON.stringify({
+    ref: "FOOLAB1",
+    centre: 'Bar Centre',
+    service: 'FooBar Service',
+    country: 'FB'
+}));
+
+var xhr = new XMLHttpRequest();
+xhr.open("POST", "http://localhost:8080/service", true);
+xhr.setRequestHeader('Content-Type', 'application/json');
+xhr.send(JSON.stringify({
+    ref: "FOOLAB2",
+    centre: 'Bar Centre',
+    service: 'FooBar Service',
+    country: 'FB'
+}));
+
+
+
+POST request update
+===================
+
+var xhr = new XMLHttpRequest();
+xhr.open("POST", "http://localhost:8080/service", true);
+xhr.setRequestHeader('Content-Type', 'application/json');
+xhr.send(JSON.stringify({
+    ref: "FOOLAB2",
+    centre: 'Foo Centre 2',
+    service: 'BarFoo Service 2',
+    country: 'FB'
+}));
+
+
+
+GET request
+===========
+
+http://localhost:8080/service?countryCode=FB
+
+Expectation: Two new records under the country code of "FB" appear in the GET request, both varying in data other than country code.
+
+
+
+CLI GET data
+============
+serviceCli -h
+serviceCli --help
+
+Expectation: Information on how to use the commands should appear.
+
+
+serviceCli -g GB
+serviceCli --get
+
+Expectation: serviceCli -g should fetch back all service data with country code GB, serviceCli --get however, will prompt for entering an argument
+
+
+CLI POST data
+=============
+serviceCli -p 'FOOLAB3' 'Foo Centre 3' 'BarFoo Service 3' 'FB'
+serviceCli --post 'FOOLAB1' 'Foo Centre 99' 'BarFoo Service 99' 'FB'
+serviceCli -p foo bar blah
+
+Expectation: serviceCli -p should add a new record (can be tested via querying the GET endpoint with countrcode=FB, or through previous CLI operation),
+    serviceCli --post should updated an already existing record with the provided arguements.
+    Furthermore, serviceCli -p foo bah blah should prompt the user to enter more arguements, providing a tip on what arguements are expected.
