@@ -15,7 +15,7 @@
         }
 
         private function homeMessage(){
-            echo "GET -> /service/{countryCode}<br/>POST -> /service (ref, centre, service, country)";
+            echo "GET -> /service?countryCode={countryCode}<br/>POST -> /service (ref, centre, service, country)";
         }
     }
 ?>
