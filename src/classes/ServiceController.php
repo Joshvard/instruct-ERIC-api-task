@@ -28,6 +28,11 @@
             
             // Query the service data based on country
             $statement = $conn->prepare("SELECT ref, centre, service, country FROM ServiceCategory WHERE country = ?");
+            
+            if(!$statement){
+                $this->returnDataJson(array("response" => "No data was found."));
+            }
+
             $statement->bind_param("s", $data['countryCode']);
             $statement->execute();
 
@@ -71,6 +76,11 @@
             
             // Check to see if the requested reference code exists within the dataset already
             $statement = $conn->prepare("SELECT service_id FROM ServiceCategory WHERE ref = ?");
+            
+            if(!$statement){
+                $this->returnDataJson(array("response" => "No data was found."));
+            }
+
             $statement->bind_param("s", $data['ref']);
             $statement->execute();
             $result = $statement->get_result();
@@ -107,6 +117,14 @@
             // The API will respond with JSON
             // Parse and encode all data in JSON and send it to the requester
             $parsedData = json_encode($data);
+
+            // This controller has been exposed to the cli tool
+            $cli = new ServiceCli();
+            
+            // For a neat console interface, we will want to treat the render a little differently
+            if($cli->isCli()){
+                $parsedData .= "\n\n";
+            }
 
             echo $parsedData;
             exit();
