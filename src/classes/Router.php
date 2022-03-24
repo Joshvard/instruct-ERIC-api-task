@@ -29,6 +29,10 @@
                 [
                     "url" => "/service",
                     "controller" => "Classes\ServiceController"
+                ],
+                [
+                    "url" => "/",
+                    "controller" => "Classes\HomeController"
                 ]
             );
         }

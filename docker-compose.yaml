@@ -8,9 +8,10 @@ services:
     environment:
       MYSQL_DATABASE: ServicesApi
       MYSQL_ROOT_PASSWORD: password
-      MYSQL_USER: root
+      MYSQL_ROOT_USER: root
     volumes:
-      - ./mysql-data:/var/lib/mysql
+      #- ./mysql-data:/var/lib/mysql
+      - ./sql-import:/var/www
     ports:
       - '3306:3306'
   php-apache:
